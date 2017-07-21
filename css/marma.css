@@ -1,0 +1,79 @@
+@charset "utf-8";
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 100%;
+	font-family: Arial;
+	font-size: 1em;
+}
+
+p {
+	font-size: 14px;
+}
+
+div {
+	box-sizing: border-box;
+	display: inline-block;
+	width: 100%;
+}
+
+img {
+	display: inline-block;
+	max-width: 100%;
+}
+
+input[type=search], input[type=text] {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 2px 5px
+}
+
+input::placeholder {
+	color: #bbb
+}
+
+.container {
+	padding: 70px 25px;
+}
+
+.marma-search {
+	width: 200px;
+	padding: 0 15px 15px 0;
+	border-right: 1px solid #ccc;
+	float: left;
+}
+
+.marma-search-box {
+	margin-bottom: 15px;
+}
+
+.marma-body-cont {
+	display: block;
+	overflow: hidden;
+	width: auto;
+}
+
+.marma-body {
+	float: left;
+	width: 50%;
+	padding: 0 0 0 2%;
+}
+
+.body-cont {
+	position: relative
+}
+
+.body-refs {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	top: 0;
+	width: 40%;
+}
+
+.body-cont img {
+	width: 60%;
+	height: auto;
+	float: right;
+}
