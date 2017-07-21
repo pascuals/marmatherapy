@@ -14,13 +14,18 @@
 	
 	var $ = global.$;
 	
-	var marma = {},
+	var marma = {
+			options: {
+				symptomClassName: "marma-symptom",
+				symptomClass: ".marma-symptom"
+			},
+		},
 		symptomsContainer, searchBox,
 		symptoms, points;
 
 	// Public
 	
-	marma = {
+	marma = $.extend(marma, {
 		symptomsContainer: function(symptomsContainerExpr) {
 			this.symptomsContainer = $(symptomsContainerExpr);
 		},
@@ -33,7 +38,7 @@
 				let searchBox = $(this);
 				let searchTerm = searchBox.val().toLowerCase();
 
-				let symptoms = marma.symptomsContainer.find(".marma-symptom");
+				let symptoms = marma.symptomsContainer.find(marma.options.symptomClass);
 				
 				symptoms.each(function() {
 					let symp = $(this);
@@ -60,7 +65,7 @@
 			Object.entries(this.symptoms).forEach(
 			    ([key, value]) => {
 			    	let symptom = $("<div>");
-			    	symptom.attr("class", "marma-symptom");
+			    	symptom.attr("class", marma.options.symptomClassName);
 			    	symptom.attr("id", key);
 			    	symptom.data("points", value.points);
 			    	symptom.html(value.title);
@@ -69,13 +74,14 @@
 			    }
 			);
 			
-			this.symptomsContainer.find(".marma-symptom").on("hover click", function(e) {
+			this.symptomsContainer.find(marma.options.symptomClass).on("hover click", function(e) {
 				let symptom = $(e.currentTarget),
 					points = symptom.data("points"),
 					id = symptom.attr("id");
 				
 				if(e.type === "click") {
-					
+					$(marma.options.symptomClass).removeClass("active");
+					symptom.addClass("active");
 				}
 			});
 		},
@@ -95,7 +101,7 @@
 	
 			return paintLineElement(x, y, c, alpha);
 		}
-	};
+	});
 
 	
 	// Private

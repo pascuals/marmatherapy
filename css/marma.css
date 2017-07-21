@@ -6,6 +6,7 @@ body {
 	font-size: 100%;
 	font-family: Arial;
 	font-size: 1em;
+	color: #222;
 }
 
 p {
@@ -48,10 +49,17 @@ input::placeholder {
 	margin-bottom: 15px;
 }
 
-.marma-symptom{
-	padding: 2px 3px;
-	margin-bottom: 5px;
+.marma-symptom {
+	padding: 3px 5px;
+	margin-bottom: 3px;
 	font-size: .9em;
+}
+
+
+.marma-symptom:hover, .marma-symptom.active {
+	background-color: #222;
+	color: #eee;
+	cursor: pointer;
 }
 
 .marma-body-cont {
