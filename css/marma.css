@@ -48,6 +48,12 @@ input::placeholder {
 	margin-bottom: 15px;
 }
 
+.marma-symptom{
+	padding: 2px 3px;
+	margin-bottom: 5px;
+	font-size: .9em;
+}
+
 .marma-body-cont {
 	display: block;
 	overflow: hidden;

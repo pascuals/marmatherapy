@@ -63,11 +63,21 @@
 			    	symptom.attr("class", "marma-symptom");
 			    	symptom.attr("id", key);
 			    	symptom.data("points", value.points);
-			    	symptom.text(value.title);
+			    	symptom.html(value.title);
 			    	
 			    	this.symptomsContainer.append(symptom);
 			    }
 			);
+			
+			this.symptomsContainer.find(".marma-symptom").on("hover click", function(e) {
+				let symptom = $(e.currentTarget),
+					points = symptom.data("points"),
+					id = symptom.attr("id");
+				
+				if(e.type === "click") {
+					
+				}
+			});
 		},
 
 		marmaPoints: function(points) {
@@ -87,9 +97,16 @@
 		}
 	};
 
+	
 	// Private
 	
-	function  paintLineElement(x, y, length, angle) {
+	function paintMarmaPoints(points) {
+		if(!points)
+			return;
+		
+	}
+	
+	function paintLineElement(x, y, length, angle) {
 		var line = document.createElement("div");
 		
 		var styles = 'border: 1px solid black; ' + 'width: ' + length + 'px; '
