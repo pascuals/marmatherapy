@@ -27,7 +27,7 @@ img {
 input[type=search], input[type=text] {
 	box-sizing: border-box;
 	width: 100%;
-	padding: 2px 5px
+	padding: 4px 5px;
 }
 
 input::placeholder {
@@ -39,10 +39,11 @@ input::placeholder {
 }
 
 .marma-search {
-	width: 200px;
+	width: 20%;
 	padding: 0 15px 15px 0;
 	border-right: 1px solid #ccc;
 	float: left;
+	max-width: 200px;
 }
 
 .marma-search-box {
@@ -50,11 +51,10 @@ input::placeholder {
 }
 
 .marma-symptom {
-	padding: 3px 5px;
+	padding: 5px 5px 4px;
 	margin-bottom: 3px;
 	font-size: .9em;
 }
-
 
 .marma-symptom:hover, .marma-symptom.active {
 	background-color: #222;
@@ -75,19 +75,44 @@ input::placeholder {
 }
 
 .body-cont {
-	position: relative
+	position: relative;
 }
 
 .body-refs {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	top: 0;
 	width: 40%;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+
+.body-image {
+	width: 60%;
+	float: right;
+	position: relative;
 }
 
 .body-cont img {
-	width: 60%;
-	height: auto;
-	float: right;
+	width: 100%;
+	height: 100%;
+}
+
+.marma-point, .marma-point-dot {
+	left: 2%;
+	position: absolute;
+	width: auto;
+}
+
+.marma-point {
+	margin-top: -5px;
+	padding-right: 5px;
+}
+
+.marma-point-dot {
+	border: 4px solid blue;
+	width: 0px;
+	border-radius: 4px;
+}
+
+.marma-point-line {
+	border-color: #666 !important;
 }

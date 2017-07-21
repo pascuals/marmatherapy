@@ -12,12 +12,18 @@
 
 	"use strict";
 	
-	var $ = global.$;
+	let $ = global.$;
 	
-	var marma = {
+	var baseMarmaClass = "marma-";
+	
+	let marma = {
 			options: {
-				symptomClassName: "marma-symptom",
-				symptomClass: ".marma-symptom"
+				baseClassName: baseMarmaClass,
+				symptomClassName: baseMarmaClass + "symptom",
+				pointClassName: baseMarmaClass + "point",
+				pointLineClassName: baseMarmaClass + "point-line",
+				pointDotClassName: baseMarmaClass + "point-dot",
+				bodyClassName: baseMarmaClass + "body",
 			},
 		},
 		symptomsContainer, searchBox,
@@ -34,11 +40,11 @@
 			this.searchBox = $(searchBoxExpr);
 			
 			// search function
-			this.searchBox.keyup(function() {
+			this.searchBox.on("input", function() {
 				let searchBox = $(this);
 				let searchTerm = searchBox.val().toLowerCase();
 
-				let symptoms = marma.symptomsContainer.find(marma.options.symptomClass);
+				let symptoms = marma.symptomsContainer.find("." + marma.options.symptomClassName);
 				
 				symptoms.each(function() {
 					let symp = $(this);
@@ -65,28 +71,65 @@
 			Object.entries(this.symptoms).forEach(
 			    ([key, value]) => {
 			    	let symptom = $("<div>");
-			    	symptom.attr("class", marma.options.symptomClassName);
+			    	symptom.addClass(marma.options.symptomClassName);
 			    	symptom.attr("id", key);
 			    	symptom.data("points", value.points);
-			    	symptom.html(value.title);
+			    	symptom.text(value.title);
 			    	
 			    	this.symptomsContainer.append(symptom);
 			    }
 			);
 			
-			this.symptomsContainer.find(marma.options.symptomClass).on("hover click", function(e) {
+			this.symptomsContainer.find("." + marma.options.symptomClassName).on("click", function(e) {
 				let symptom = $(e.currentTarget),
 					points = symptom.data("points"),
-					id = symptom.attr("id");
+					id = symptom.attr("id"),
+					isClick = false;
 				
 				if(e.type === "click") {
-					$(marma.options.symptomClass).removeClass("active");
+					isClick = true;
+					$("." + marma.options.symptomClassName).removeClass("active");
 					symptom.addClass("active");
+				}
+
+				$("." + marma.options.pointClassName + ", ." + marma.options.pointLineClassName + ", ." + marma.options.pointDotClassName).remove();
+				
+				for(let value of points) {
+					let point = marma.points[value];
+					
+					if(point == null)
+						continue;
+					
+					let pointElem = $("<div>");
+					pointElem.attr("id", "point" + value);
+					pointElem.addClass(marma.options.pointClassName);
+					pointElem.text(point.title);
+					pointElem.css("top", point.top + "%");
+					
+					let dotElem = $("<div>");
+					dotElem.attr("id", "dot" + value);
+					dotElem.addClass(marma.options.pointDotClassName);
+					dotElem.css("top", point.top + "%");
+					dotElem.css("left", point.left + "%");
+					
+				 	let bodyElem = $("." + marma.options.bodyClassName + "-" +
+						(point.front ? "front" : "back"));
+						
+					bodyElem.find(".body-refs").append(pointElem);
+					bodyElem.find(".body-image").append(dotElem);
+					
+					let lineElem = marma.paintLine(
+							pointElem.offset().left + pointElem.outerWidth(), pointElem.offset().top + pointElem.outerHeight() / 2,
+							dotElem.offset().left - 2, dotElem.offset().top + dotElem.outerHeight() / 2);
+					
+					$(lineElem).addClass(marma.options.pointLineClassName);
+
+					$("body").append(lineElem);
 				}
 			});
 		},
 
-		marmaPoints: function(points) {
+		setPoints: function(points) {
 			this.points = points;
 		},
 		
@@ -122,7 +165,7 @@
 				+ '-ms-transform: rotate(' + angle + 'rad); '
 				+ 'position: absolute; ' + 'top: ' + y + 'px; ' + 'left: ' + x
 				+ 'px; ';
-		
+
 		line.setAttribute('style', styles);
 		
 		return line;

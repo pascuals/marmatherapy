@@ -21,17 +21,21 @@
 
 		<!-- HUMAN BODY -->
 		<div class="marma-body-cont">
-			<div class="marma-body body-front">
+			<div class="marma-body marma-body-front">
 				<div class="body-cont">
 					<div class="body-refs"></div>
-					<img src="image/body-front.png" alt="" width="194" height="650" />
+					<div class="body-image">
+						<img src="image/body-front.png" alt="" width="406" height="1000" />
+					</div>
 				</div>
 			</div>
 
-			<div class="marma-body body-back">
+			<div class="marma-body marma-body-back">
 				<div class="body-cont">
 					<div class="body-refs"></div>
-					<img src="./image/body-back.png" alt="" width="194" height="650" />
+					<div class="body-image">
+						<img src="./image/body-back.png" alt="" width="406" height="1000" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -44,27 +48,55 @@
 		$(function() {
 			marma.symptomsContainer('.marma-list');
 			marma.searchBox('.marma-search-box');
-			
+
 			symptoms = {
-					"1": {
-						title: "Absceso mamario",
-						id: 1,
-						points: [8, 23, 31]
-					},
-					"2": {
-						title: "Accidente cerebrovascular",
-						id: 1,
-						points: [5, 6]
-					},
-					"3": {
-						title: "Adormecimiento",
-						id: 1,
-						points: [13]
-					}
+				"1" : {
+					title : "Absceso mamario",
+					id : 1,
+					points : [ 8, 13, 21 ]
+				},
+				"2" : {
+					title : "Accidente cerebrovascular",
+					id : 1,
+					points : [ 5, 6 ]
+				},
+				"3" : {
+					title : "Adormecimiento",
+					id : 1,
+					points : [ 8 ]
+				}
 			};
-			
+
+			points = {
+				"5" : {
+					title : "punto1",
+					left : 45,
+					top : 13,
+					front: true
+				},
+				"8" : {
+					title : "avarta",
+					left : 20,
+					top : 23,
+					front: true
+				},
+				"13" : {
+					title : "punto3",
+					left : 37,
+					top : 30,
+					front: true
+				},
+				"21" : {
+					title : "punto4",
+					left : 33,
+					top : 27,
+					front: false
+				}
+			};
+
+			marma.setPoints(points);
+
 			marma.setSymptoms(symptoms);
-			
 		});
 	</script>
 </body>
