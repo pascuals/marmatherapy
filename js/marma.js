@@ -102,8 +102,9 @@
 					
 					let pointElem = $("<div>");
 					pointElem.attr("id", "point" + value);
+					pointElem.attr("title", point.description);
 					pointElem.addClass(marma.options.pointClassName);
-					pointElem.text(point.title);
+					pointElem.text("[" + value + "] " + point.title);
 					pointElem.css("top", point.top + "%");
 					
 					let dotElem = $("<div>");

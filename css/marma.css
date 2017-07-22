@@ -51,9 +51,9 @@ input::placeholder {
 }
 
 .marma-symptom {
-	padding: 5px 5px 4px;
+	padding: 4px;
 	margin-bottom: 3px;
-	font-size: .9em;
+	font-size: .7em;
 }
 
 .marma-symptom:hover, .marma-symptom.active {
