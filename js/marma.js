@@ -109,6 +109,7 @@
 					
 					let dotElem = $("<div>");
 					dotElem.attr("id", "dot" + value);
+					dotElem.attr("title",point.description);
 					dotElem.addClass(marma.options.pointDotClassName);
 					dotElem.css("top", point.top + "%");
 					dotElem.css("left", point.left + "%");
@@ -119,13 +120,13 @@
 					bodyElem.find(".body-refs").append(pointElem);
 					bodyElem.find(".body-image").append(dotElem);
 					
-					let lineElem = marma.paintLine(
-							pointElem.offset().left + pointElem.outerWidth(), pointElem.offset().top + pointElem.outerHeight() / 2,
-							dotElem.offset().left - 2, dotElem.offset().top + dotElem.outerHeight() / 2);
+					//let lineElem = marma.paintLine(
+							//pointElem.offset().left + pointElem.outerWidth(), pointElem.offset().top + pointElem.outerHeight() / 2,
+							//dotElem.offset().left - 2, dotElem.offset().top + dotElem.outerHeight() / 2);
 					
-					$(lineElem).addClass(marma.options.pointLineClassName);
+					//$(lineElem).addClass(marma.options.pointLineClassName);
 
-					$("body").append(lineElem);
+					//$("body").append(lineElem);
 				}
 			});
 		},

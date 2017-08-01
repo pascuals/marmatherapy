@@ -10,7 +10,7 @@ body {
 }
 
 p {
-	font-size: 14px;
+	font-size: 12px;
 }
 
 div {
@@ -86,7 +86,7 @@ input::placeholder {
 }
 
 .body-image {
-	width: 60%;
+	width: 100%;
 	float: right;
 	position: relative;
 }
