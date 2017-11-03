@@ -11,11 +11,16 @@
 </head>
 
 <body>
+	<!-- HEADER -->
+	<div class="marma-header marma-options">
+		<div class="col-1-2 option option-actions active" data-marma-group="actions">Acciones</div>
+		<div class="col-1-2 option option-symptoms" data-marma-group="symptoms">Símtomas</div>
+	</div>
+
 	<div class="container">
 		<!-- SEARCH -->
 		<div class="marma-search">
-			<input type="search" class="marma-search-box"
-				placeholder="Search a symptom..." />
+			<input type="search" class="marma-search-box" placeholder="Search..." />
 			<div class="marma-list"></div>
 		</div>
 
@@ -46,10 +51,1517 @@
 
 	<script>
 		$(function() {
-			marma.symptomsContainer('.marma-list');
+			"use strict";
+			var groups = {};
+			$(".marma-options .option").click(function() {
+				$(".marma-options .option.active").removeClass("active");
+				$(this).addClass("active");
+				
+				marma.setGroups(groups[$(this).data("marma-group")]);
+			});
+			
+			marma.groupsContainer('.marma-list');
 			marma.searchBox('.marma-search-box');
 
-			symptoms = {
+			groups.actions = {
+				"1" : {
+					title : "Abre Cavidades nasales",
+					id : 1,
+					points : [ 23 ]
+				},
+				"2" : {
+					title : "Abre conducto nasolagrimal aliviando la congestión nasal",
+					id : 1,
+					points : [ 13,14 ]
+				},
+				"3" : {
+					title : "Abre senos nasales",
+					id : 1,
+					points : [ 22 ]
+				},
+				"4" : {
+					title : "Activa Prana",
+					id : 1,
+					points : [ 113 ]
+				},
+				"5" : {
+					title : "Actúa en lóbulos inferiores de los pulmones y el diafragma",
+					id : 1,
+					points : [ 75 ]
+				},
+				"6" : {
+					title : "Actúa localmente para aliviar el dolor de rodilla los riñones, la vejiga y las glándulas suprarrenales",
+					id : 1,
+					points : [ 106 ]
+				},
+				"7" : {
+					title : "Actúa sobre las manos y los dedos",
+					id : 1,
+					points : [ 96 ]
+				},
+				"8" : {
+					title : "Alivia dolores de cabeza occipital o posterior",
+					id : 1,
+					points : [ 3 ]
+				},
+				"9" : {
+					title : "Alivia el broncoespasmo y congestión pulmonar",
+					id : 1,
+					points : [ 72,73,74 ]
+				},
+				"10" : {
+					title : "Alivia el dolor",
+					id : 1,
+					points : [ 67,79,99,100,98 ]
+				},
+				"11" : {
+					title : "Alivia el dolor de cabeza",
+					id : 1,
+					points : [ 18,1,4,5,6,7,13,14,22,95,115,2,10,32,43,113,8,9,11,12,33,34,35 ]
+				},
+				"12" : {
+					title : "Alivia el dolor de cabeza y otros dolores",
+					id : 1,
+					points : [ 45,46 ]
+				},
+				"13" : {
+					title : "Alivia el dolor de cuello",
+					id : 1,
+					points : [ 36 ]
+				},
+				"14" : {
+					title : "Alivia el dolor de cuello y dolores de cabeza",
+					id : 1,
+					points : [ 30 ]
+				},
+				"15" : {
+					title : "Alivia el dolor de estómago, disminuye la acidez",
+					id : 1,
+					points : [ 6 ]
+				},
+				"16" : {
+					title : "Alivia el dolor de hombro y brazo",
+					id : 1,
+					points : [ 47 ]
+				},
+				"17" : {
+					title : "Alivia el dolor facial",
+					id : 1,
+					points : [ 28 ]
+				},
+				"18" : {
+					title : "Alivia el dolor local",
+					id : 1,
+					points : [104,114,58,61,71,72,75,77,78,80,87,101,110,112,115,59,86,105,73,74,111,85,91,53,57 ]
+				},
+				"19" : {
+					title : "Alivia el dolor local mejora la circulación",
+					id : 1,
+					points : [ 88 ]
+				},
+				"20" : {
+					title : "Alivia el dolor pélvico",
+					id : 1,
+					points : [ 68,70 ]
+				},
+				"21" : {
+					title : "Alivia el dolor y distensión abdominal",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"22" : {
+					title : "Alivia el dolor local y dolores de cabeza",
+					id : 1,
+					points : [ 89 ]
+				},
+				"23" : {
+					title : "Alivia el dolor y la rigidez a nivel local",
+					id : 1,
+					points : [ 81 ]
+				},
+				"24" : {
+					title : "Alivia el estancamiento causado a nivel local por Vyana Vayu",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"25" : {
+					title : "Alivia el estrés",
+					id : 1,
+					points : [ 27,43,81,4,10,11,12,80,5,94,30 ]
+				},
+				"26" : {
+					title : "Alivia el estrés y la tensión",
+					id : 1,
+					points : [ 13,32,33,34,35 ]
+				},
+				"27" : {
+					title : "Alivia el estrés y la tensión detrás de los ojos",
+					id : 1,
+					points : [ 14 ]
+				},
+				"28" : {
+					title : "Alivia el estrés, calma la mente.",
+					id : 1,
+					points : [ 7,8,9 ]
+				},
+				"29" : {
+					title : "Alivia el estrés, emociones estancadas",
+					id : 1,
+					points : [ 82,6 ]
+				},
+				"30" : {
+					title : "Alivia el temblor o movimiento anormal de las extremidades superiores",
+					id : 1,
+					points : [ 84 ]
+				},
+				"31" : {
+					title : "Alivia la congestión",
+					id : 1,
+					points : [ 19,23 ]
+				},
+				"32" : {
+					title : "Alivia la congestión de la membrana bucal Mocus",
+					id : 1,
+					points : [ 23 ]
+				},
+				"33" : {
+					title : "Alivia la congestión de la nariz",
+					id : 1,
+					points : [ 24 ]
+				},
+				"34" : {
+					title : "Alivia la congestión en el tejido mamario",
+					id : 1,
+					points : [ 49,50,51,54,56 ]
+				},
+				"35" : {
+					title : "Alivia la congestión en estos órganos asociados",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"36" : {
+					title : "Alivia la congestión en los pulmones y las vías respiratorias",
+					id : 1,
+					points : [ 48 ]
+				},
+				"37" : {
+					title : "Alivia la congestión local",
+					id : 1,
+					points : [ 78 ]
+				},
+				"38" : {
+					title : "Alivia la congestión local y la inflamación",
+					id : 1,
+					points : [ 69 ]
+				},
+				"39" : {
+					title : "Alivia la congestión pulmonar",
+					id : 1,
+					points : [ 47 ]
+				},
+				"40" : {
+					title : "Alivia la congestión pulmonar y broncoespasmos",
+					id : 1,
+					points : [ 71 ]
+				},
+				"41" : {
+					title : "Alivia la rigidez en el hombro",
+					id : 1,
+					points : [ 80 ]
+				},
+				"42" : {
+					title : "Alivia la tensión en el cuello",
+					id : 1,
+					points : [ 39,40 ]
+				},
+				"43" : {
+					title : "Alivia la tensión en el pecho y broncoespasmos",
+					id : 1,
+					points : [ 47 ]
+				},
+				"44" : {
+					title : "Alivia la tensión, el estrés y las emociones",
+					id : 1,
+					points : [ 31 ]
+				},
+				"45" : {
+					title : "Alivia los dolores de cabeza occipital",
+					id : 1,
+					points : [ 80 ]
+				},
+				"46" : {
+					title : "Alivia trastornos de colon",
+					id : 1,
+					points : [ 22 ]
+				},
+				"47" : {
+					title : "Aliviar el dolor en la espalda baja, la cara y el cuello.",
+					id : 1,
+					points : [ 44 ]
+				},
+				"48" : {
+					title : "Aliviar el dolor y los dolores de cabeza locales",
+					id : 1,
+					points : [ 31 ]
+				},
+				"49" : {
+					title : "Apacigua el dolor renal y dolor de espalda baja",
+					id : 1,
+					points : [ 76 ]
+				},
+				"50" : {
+					title : "Apacigua las emociones ardientes",
+					id : 1,
+					points : [ 59 ]
+				},
+				"51" : {
+					title : "Apacigua los dolores y molestias en los pechos",
+					id : 1,
+					points : [ 47 ]
+				},
+				"52" : {
+					title : "Armoniza el movimiento del codo y el brazo",
+					id : 1,
+					points : [ 88 ]
+				},
+				"53" : {
+					title : "Armoniza las emociones",
+					id : 1,
+					points : [ 61 ]
+				},
+				"54" : {
+					title : "Armoniza las emociones y alivia el estrés",
+					id : 1,
+					points : [ 93 ]
+				},
+				"55" : {
+					title : "Aumenta la circulación y mejora la función de los órganos pélvicos",
+					id : 1,
+					points : [ 67 ]
+				},
+				"56" : {
+					title : "Aumenta la energía y la vitalidad",
+					id : 1,
+					points : [ 84 ]
+				},
+				"57" : {
+					title : "Ayuda a aliviar la congestión del oído",
+					id : 1,
+					points : [ 43 ]
+				},
+				"58" : {
+					title : "Ayuda a regular las funciones de la pituitaria, la tiroides alivia el estrés",
+					id : 1,
+					points : [ 36 ]
+				},
+				"59" : {
+					title : "Ayudar a aliviar los dolores de cabeza",
+					id : 1,
+					points : [ 23 ]
+				},
+				"60" : {
+					title : "Bazo",
+					id : 1,
+					points : [ 42 ]
+				},
+				"61" : {
+					title : "Beneficia a los pulmones",
+					id : 1,
+					points : [ 94 ]
+				},
+				"62" : {
+					title : "Beneficia al hígado, vesícula biliar ,el bazo y el páncreas ",
+					id : 1,
+					points : [ 58 ]
+				},
+				"63" : {
+					title : "Beneficia el corazón y el colon",
+					id : 1,
+					points : [ 101 ]
+				},
+				"64" : {
+					title : "Beneficia los ojos y estimular la visión",
+					id : 1,
+					points : [ 43 ]
+				},
+				"65" : {
+					title : "Beneficia pulmones, faringe, laringe",
+					id : 1,
+					points : [ 40 ]
+				},
+				"66" : {
+					title : "Beneficia zona pélvica",
+					id : 1,
+					points : [ 70 ]
+				},
+				"67" : {
+					title : "Beneficio de los ojos",
+					id : 1,
+					points : [ 30 ]
+				},
+				"68" : {
+					title : "Beneficios de estómago, disminuye la acidez",
+					id : 1,
+					points : [ 52 ]
+				},
+				"69" : {
+					title : "Beneficios de la cara ",
+					id : 1,
+					points : [ 24 ]
+				},
+				"70" : {
+					title : "Beneficios de la garganta",
+					id : 1,
+					points : [ 32,33,34,35 ]
+				},
+				"71" : {
+					title : "Beneficios de la mano",
+					id : 1,
+					points : [ 95 ]
+				},
+				"72" : {
+					title : "Beneficios de la muñeca y la mano ",
+					id : 1,
+					points : [ 90 ]
+				},
+				"73" : {
+					title : "Beneficios de la nariz",
+					id : 1,
+					points : [ 21 ]
+				},
+				"74" : {
+					title : "Beneficios de la nariz y los pulmones",
+					id : 1,
+					points : [ 20 ]
+				},
+				"75" : {
+					title : "Beneficios de la nariz, alivia la congestió",
+					id : 1,
+					points : [ 22 ]
+				},
+				"76" : {
+					title : "Beneficios de la vejiga, colon y riñones",
+					id : 1,
+					points : [ 102,103 ]
+				},
+				"77" : {
+					title : "Beneficios de las manos",
+					id : 1,
+					points : [ 97 ]
+				},
+				"78" : {
+					title : "Beneficios de las piernas y relaja los músculo",
+					id : 1,
+					points : [ 108,109 ]
+				},
+				"79" : {
+					title : "Beneficios de las rodillas",
+					id : 1,
+					points : [ 104,105 ]
+				},
+				"80" : {
+					title : "Beneficios de los oídos",
+					id : 1,
+					points : [ 44 ]
+				},
+				"81" : {
+					title : "Beneficios de los ojos y la nariz",
+					id : 1,
+					points : [ 15,16,17 ]
+				},
+				"82" : {
+					title : "Beneficios de los ojos, mejora la visión",
+					id : 1,
+					points : [ 13,14 ]
+				},
+				"83" : {
+					title : "Beneficios de los pies y las extremidades inferiores",
+					id : 1,
+					points : [ 115 ]
+				},
+				"84" : {
+					title : "Beneficios de los senos",
+					id : 1,
+					points : [ 83 ]
+				},
+				"85" : {
+					title : "Beneficios de los senos regula la lactancia",
+					id : 1,
+					points : [ 54,56 ]
+				},
+				"86" : {
+					title : "Beneficios de los tobillos",
+					id : 1,
+					points : [ 110,111,112 ]
+				},
+				"87" : {
+					title : "Beneficios de pulmones y estimular broncodilatación",
+					id : 1,
+					points : [ 31 ]
+				},
+				"88" : {
+					title : "Beneficios dei hígado y el bazo",
+					id : 1,
+					points : [ 30 ]
+				},
+				"89" : {
+					title : "Beneficios del colon",
+					id : 1,
+					points : [ 98 ]
+				},
+				"90" : {
+					title : "Beneficios del corazón ",
+					id : 1,
+					points : [ 71 ]
+				},
+				"91" : {
+					title : "Beneficios del corazón y regula la actividad cardíaca",
+					id : 1,
+					points : [ 48 ]
+				},
+				"92" : {
+					title : "Beneficios del hígado, la función renal y vesícula",
+					id : 1,
+					points : [ 57 ]
+				},
+				"93" : {
+					title : "Beneficios del suelo pélvico",
+					id : 1,
+					points : [ 79 ]
+				},
+				"94" : {
+					title : "Beneficios extremidades inferiores",
+					id : 1,
+					points : [ 99,100 ]
+				},
+				"95" : {
+					title : "Beneficios función del hígado, la vesícula biliar, el bazo",
+					id : 1,
+					points : [ 75 ]
+				},
+				"96" : {
+					title : "Beneficios funciones del hígado y del bazo",
+					id : 1,
+					points : [ 89 ]
+				},
+				"97" : {
+					title : "Beneficios funciones del riñón y de vejiga",
+					id : 1,
+					points : [ 77 ]
+				},
+				"98" : {
+					title : "Beneficios Manos",
+					id : 1,
+					points : [ 89 ]
+				},
+				"99" : {
+					title : "Beneficios ojos y la nariz",
+					id : 1,
+					points : [ 4,5 ]
+				},
+				"100" : {
+					title : "Beneficios para la cara, alivia el dolor local",
+					id : 1,
+					points : [ 25 ]
+				},
+				"101" : {
+					title : "Beneficios para los oídos, los ojos, los dientes y la cara",
+					id : 1,
+					points : [ 6 ]
+				},
+				"102" : {
+					title : "Beneficios para los ojos",
+					id : 1,
+					points : [ 7,8,9,10,11,12 ]
+				},
+				"103" : {
+					title : "Beneficios para los ojos y la nariz",
+					id : 1,
+					points : [ 18 ]
+				},
+				"104" : {
+					title : "Beneficios pulmones y aumenta el flujo de prana",
+					id : 1,
+					points : [ 96 ]
+				},
+				"105" : {
+					title : "Beneficios pulmones y la respiración",
+					id : 1,
+					points : [ 57 ]
+				},
+				"106" : {
+					title : "Beneficios urinario y reproductivo",
+					id : 1,
+					points : [ 79 ]
+				},
+				"107" : {
+					title : "Borra la mente",
+					id : 1,
+					points : [ 39 ]
+				},
+				"108" : {
+					title : "Calma dificultad respiratoria",
+					id : 1,
+					points : [ 41 ]
+				},
+				"109" : {
+					title : "Calma la hiperactividad de la mente",
+					id : 1,
+					points : [ 44 ]
+				},
+				"110" : {
+					title : "Calma la mente",
+					id : 1,
+					points : [ 19,24,2 ]
+				},
+				"111" : {
+					title : "Calma la mente y alivia el estrés",
+					id : 1,
+					points : [ 115 ]
+				},
+				"112" : {
+					title : "Calma la mente y las emociones no expresadas ",
+					id : 1,
+					points : [ 80,89 ]
+				},
+				"113" : {
+					title : "Calma la mente, equilibra las emociones",
+					id : 1,
+					points : [ 1,3 ]
+				},
+				"114" : {
+					title : "Calma la mente, equilibra las emociones, alivia el estrés",
+					id : 1,
+					points : [ 49,50,51,52 ]
+				},
+				"115" : {
+					title : "Calma la mente, libera emociones estancadas",
+					id : 1,
+					points : [ 72,73,74,18,89 ]
+				},
+				"116" : {
+					title : "Disminución de la libido",
+					id : 1,
+					points : [ 68,69 ]
+				},
+				"117" : {
+					title : "Disminución de la testosterona",
+					id : 1,
+					points : [ 68 ]
+				},
+				"118" : {
+					title : "Disminución de la visión",
+					id : 1,
+					points : [ 13,14 ]
+				},
+				"119" : {
+					title : "Contracciones o aleteo de los párpados",
+					id : 1,
+					points : [ 15,16,17 ]
+				},
+				"120" : {
+					title : "Capacidad del pulmón",
+					id : 1,
+					points : [ 24 ]
+				},
+				"121" : {
+					title : "Circulación cerebral",
+					id : 1,
+					points : [ 26 ]
+				},
+				"122" : {
+					title : "Coordina equilibrio entre vayu prana y vayu Udana",
+					id : 1,
+					points : [ 26 ]
+				},
+				"123" : {
+					title : "Desintoxica ama regula la digestión",
+					id : 1,
+					points : [ 59 ]
+				},
+				"124" : {
+					title : "Desintoxica el hígado",
+					id : 1,
+					points : [ 90 ]
+				},
+				"125" : {
+					title : "El dolor de cuello y rigidez",
+					id : 1,
+					points : [ 31 ]
+				},
+				"126" : {
+					title : "Regula flujo de prana",
+					id : 1,
+					points : [ 94 ]
+				},
+				"127" : {
+					title : "Emociones",
+					id : 1,
+					points : [ 60,97 ]
+				},
+				"128" : {
+					title : "Emociones",
+					id : 1,
+					points : [ 71 ]
+				},
+				"129" : {
+					title : "Equilibra Apana Vayu",
+					id : 1,
+					points : [ 77,99,100,101,28,27,67 ]
+				},
+				"130" : {
+					title : "Equilibra el corazón y la mente",
+					id : 1,
+					points : [ 93 ]
+				},
+				"131" : {
+					title : "Equilibria Udana y Apana Vayu",
+					id : 1,
+					points : [ 96 ]
+				},
+				"132" : {
+					title : "Estabiliza la mente",
+					id : 1,
+					points : [ 109 ]
+				},
+				"133" : {
+					title : "Estabiliza la mente emociones estancadas",
+					id : 1,
+					points : [ 86 ]
+				},
+				"134" : {
+					title : "Estimula Agni (metabolismo hepático)",
+					id : 1,
+					points : [ 59 ]
+				},
+				"135" : {
+					title : "Estimula agni y expulsa las toxinas",
+					id : 1,
+					points : [ 86 ]
+				},
+				"136" : {
+					title : "Estimula el flujo de prana, vyana y Apana vayus",
+					id : 1,
+					points : [ 89 ]
+				},
+				"137" : {
+					title : "Estimula el fuego digestivo y eliminar la toxina",
+					id : 1,
+					points : [ 42 ]
+				},
+				"138" : {
+					title : "Estimula el plexo solar",
+					id : 1,
+					points : [ 84 ]
+				},
+				"139" : {
+					title : "Estimula la digestión y absorción en el estómago, el intestino delgado y el colon",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"140" : {
+					title : "Estimula la energía kundalini",
+					id : 1,
+					points : [ 79 ]
+				},
+				"141" : {
+					title : "Estimula la energía sexual",
+					id : 1,
+					points : [ 68 ]
+				},
+				"142" : {
+					title : "",
+					id : 1,
+					points : [ 2,3 ]
+				},
+				"143" : {
+					title : "Estimula la memoria y la concentración",
+					id : 1,
+					points : [ 5 ]
+				},
+				"144" : {
+					title : "Estimula la memoria, la atención y la concentración",
+					id : 1,
+					points : [ 1 ]
+				},
+				"145" : {
+					title : "Estimula la secreción lagrimal",
+					id : 1,
+					points : [ 10,11,12 ]
+				},
+				"146" : {
+					title : "Estimula las contracciones uterinas durante el parto",
+					id : 1,
+					points : [ 55 ]
+				},
+				"147" : {
+					title : "Estimula los ovarios ",
+					id : 1,
+					points : [ 21 ]
+				},
+				"148" : {
+					title : "Estimular el fuego digestivo del estómago y el páncreas",
+					id : 1,
+					points : [ 29 ]
+				},
+				"149" : {
+					title : "Estimular la agilidad mental",
+					id : 1,
+					points : [ 44 ]
+				},
+				"150" : {
+					title : "Extremidades superiores y hombros",
+					id : 1,
+					points : [ 82 ]
+				},
+				"151" : {
+					title : "Facilita el flujo de prana en los pulmones y parte superior del pecho",
+					id : 1,
+					points : [ 80 ]
+				},
+				"152" : {
+					title : "Facilita el funcionamiento óptimo de los pulmones y las vías respiratorias",
+					id : 1,
+					points : [ 48 ]
+				},
+				"153" : {
+					title : "Facilita el óptimo funcionamiento de los pulmones y las vías respiratorias",
+					id : 1,
+					points : [ 71 ]
+				},
+				"154" : {
+					title : "Flujo de prana",
+					id : 1,
+					points : [ 105 ]
+				},
+				"155" : {
+					title : "Fortalece la actividad sexual y beneficios para el recto",
+					id : 1,
+					points : [ 91 ]
+				},
+				"156" : {
+					title : "Función óptima de la glándula pituitaria",
+					id : 1,
+					points : [ 4 ]
+				},
+				"157" : {
+					title : "Función pancreática",
+					id : 1,
+					points : [ 81 ]
+				},
+				"158" : {
+					title : "Funcionamiento óptimo de la glándula pituitaria ",
+					id : 1,
+					points : [ 3 ]
+				},
+				"159" : {
+					title : "Funcionamiento óptimo de las glándulas",
+					id : 1,
+					points : [ 2 ]
+				},
+				"160" : {
+					title : "Funciones cardíacas",
+					id : 1,
+					points : [ 41 ]
+				},
+				"161" : {
+					title : "Inflama agni",
+					id : 1,
+					points : [ 61 ]
+				},
+				"162" : {
+					title : "Inflama agni, mejora la digestión",
+					id : 1,
+					points : [ 26 ]
+				},
+				"163" : {
+					title : "Inflama agni, regula Samana Vayu",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"164" : {
+					title : "Influencia pulmones y el estómago",
+					id : 1,
+					points : [ 82 ]
+				},
+				"165" : {
+					title : "Influye en el habla",
+					id : 1,
+					points : [ 6 ]
+				},
+				"166" : {
+					title : "Influye en los órganos reproductivos",
+					id : 1,
+					points : [ 91 ]
+				},
+				"167" : {
+					title : "La cabeza, el cuello y las orejas",
+					id : 1,
+					points : [ 31 ]
+				},
+				"168" : {
+					title : "La circulación cerebral, respiratoria",
+					id : 1,
+					points : [ 105 ]
+				},
+				"169" : {
+					title : "La congestión en el tejido mamario, la mastitis",
+					id : 1,
+					points : [ 83 ]
+				},
+				"170" : {
+					title : "Le da la libertad de movimiento en el hombro",
+					id : 1,
+					points : [ 81 ]
+				},
+				"171" : {
+					title : "Libera el movimiento en la muñeca",
+					id : 1,
+					points : [ 91 ]
+				},
+				"172" : {
+					title : "Libera Emociones reprimidas",
+					id : 1,
+					points : [ 15,16,17,23,48,53,10,11,12,22,37,38 ]
+				},
+				"173" : {
+					title : "Libera emociones reprimidas en forma de lágrimas",
+					id : 1,
+					points : [ 7,8,9 ]
+				},
+				"174" : {
+					title : "Libera la tensión del cuello y dolores de cabeza",
+					id : 1,
+					points : [ 29 ]
+				},
+				"175" : {
+					title : "Los órganos reproductivos",
+					id : 1,
+					points : [ 94 ]
+				},
+				"176" : {
+					title : "Los problemas cardíacos",
+					id : 1,
+					points : [ 41 ]
+				},
+				"177" : {
+					title : "Lubrica y descongestiona las vías nasales",
+					id : 1,
+					points : [ 15,16,17 ]
+				},
+				"178" : {
+					title : "Mano y los dedos",
+					id : 1,
+					points : [ 94 ]
+				},
+				"179" : {
+					title : "Mantiene el equilibrio",
+					id : 1,
+					points : [ 115 ]
+				},
+				"180" : {
+					title : "Mantiene el tono de la vejiga",
+					id : 1,
+					points : [ 85 ]
+				},
+				"181" : {
+					title : "Mantiene el tono del músculo del diafragma",
+					id : 1,
+					points : [ 58 ]
+				},
+				"182" : {
+					title : "Mantiene Inmunidad y estimular aura",
+					id : 1,
+					points : [ 42 ]
+				},
+				"183" : {
+					title : "Mantiene la función óptima de los pulmones y las vías respiratorias",
+					id : 1,
+					points : [ 49,50,51,52 ]
+				},
+				"184" : {
+					title : "Mejora el drenaje linfático del tejido mamario",
+					id : 1,
+					points : [ 83 ]
+				},
+				"185" : {
+					title : "Mejora el estado de alerta mental",
+					id : 1,
+					points : [ 26 ]
+				},
+				"186" : {
+					title : "Mejora el flujo de prana",
+					id : 1,
+					points : [ 75,22,23,24,57,71,81,47,18,1 ]
+				},
+				"187" : {
+					title : "Mejora el flujo de prana a los pulmones y el cerebro",
+					id : 1,
+					points : [ 95 ]
+				},
+				"188" : {
+					title : "Mejora la absorción y asimilación en el colon",
+					id : 1,
+					points : [ 25 ]
+				},
+				"189" : {
+					title : "Mejora la capacidad funcional de los pulmones",
+					id : 1,
+					points : [ 21 ]
+				},
+				"190" : {
+					title : "Mejora la capacidad pulmonar",
+					id : 1,
+					points : [ 47 ]
+				},
+				"191" : {
+					title : "Mejora la circulación",
+					id : 1,
+					points : [ 99,100 ]
+				},
+				"192" : {
+					title : "Mejora la circulación cerebral",
+					id : 1,
+					points : [ 2,3 ]
+				},
+				"193" : {
+					title : "Mejora la circulación cerebral y la circulación del líquido cefalorraquídeo",
+					id : 1,
+					points : [ 1 ]
+				},
+				"194" : {
+					title : "Mejora la circulación coronaria",
+					id : 1,
+					points : [ 49,52,97,50,51 ]
+				},
+				"195" : {
+					title : "Mejora la circulación de plasma y el líquido linfático",
+					id : 1,
+					points : [ 32,33,34,35 ]
+				},
+				"196" : {
+					title : "Mejora la circulación en el lóbulo frontal del cerebro",
+					id : 1,
+					points : [ 7,8,9 ]
+				},
+				"197" : {
+					title : "Mejora la circulación en las extremidades inferiores ",
+					id : 1,
+					points : [ 70,98 ]
+				},
+				"198" : {
+					title : "Mejora la circulación en los órganos pélvicos",
+					id : 1,
+					points : [ 69 ]
+				},
+				"199" : {
+					title : "Mejora la circulación en los pies",
+					id : 1,
+					points : [ 110,111,112 ]
+				},
+				"200" : {
+					title : "Mejora la circulación linfática",
+					id : 1,
+					points : [ 29,54,56,60 ]
+				},
+				"201" : {
+					title : "Mejora la circulación linfática cervical",
+					id : 1,
+					points : [ 39,40,41 ]
+				},
+				"202" : {
+					title : "Mejora la circulación linfática en el pecho",
+					id : 1,
+					points : [ 42,49,50,51 ]
+				},
+				"203" : {
+					title : "Mejora la circulación sanguínea cerebral y el líquido cefalorraquídeo",
+					id : 1,
+					points : [ 29 ]
+				},
+				"204" : {
+					title : "Mejora la circulación sanguínea y linfática en las extremidades superiores ",
+					id : 1,
+					points : [ 83 ]
+				},
+				"205" : {
+					title : "Mejora la circulación y alivia la congestión",
+					id : 1,
+					points : [ 89 ]
+				},
+				"206" : {
+					title : "Mejora la circulación y la función de los órganos pélvicos ",
+					id : 1,
+					points : [ 68 ]
+				},
+				"207" : {
+					title : "Mejora la comunicación",
+					id : 1,
+					points : [ 42 ]
+				},
+				"208" : {
+					title : "Mejora la función del riñón",
+					id : 1,
+					points : [ 45,46 ]
+				},
+				"209" : {
+					title : "Mejora la función pulmonar ",
+					id : 1,
+					points : [ 53 ]
+				},
+				"210" : {
+					title : "Mejora la inmunidad",
+					id : 1,
+					points : [ 60,90 ]
+				},
+				"211" : {
+					title : "Mejora las funciones renales y suprarrenales",
+					id : 1,
+					points : [ 15,16,17 ]
+				},
+				"212" : {
+					title : "Mejorar el fuego digestivo y eliminar toxinas",
+					id : 1,
+					points : [ 17 ]
+				},
+				"213" : {
+					title : "Mejorar el metabolismo ",
+					id : 1,
+					points : [ 38 ]
+				},
+				"214" : {
+					title : "Mejorar la coordinación y el equilibrio",
+					id : 1,
+					points : [ 29 ]
+				},
+				"215" : {
+					title : "Mejorar la salud de la visión, ojos",
+					id : 1,
+					points : [ 41 ]
+				},
+				"216" : {
+					title : "Mejorar la tez,color de la cara",
+					id : 1,
+					points : [ 27 ]
+				},
+				"217" : {
+					title : "Muñeca",
+					id : 1,
+					points : [ 92 ]
+				},
+				"218" : {
+					title : "Nariz",
+					id : 1,
+					points : [ 19 ]
+				},
+				"219" : {
+					title : "Nervios faciales",
+					id : 1,
+					points : [ 45,46 ]
+				},
+				"220" : {
+					title : "Oídos ",
+					id : 1,
+					points : [ 81 ]
+				},
+				"221" : {
+					title : "Órganos reproductores ",
+					id : 1,
+					points : [ 92 ]
+				},
+				"222" : {
+					title : "Ovarios y testículos",
+					id : 1,
+					points : [ 102,103 ]
+				},
+				"223" : {
+					title : "Pacifica kapha dosha",
+					id : 1,
+					points : [ 110,111 ]
+				},
+				"224" : {
+					title : "Pacifica pitta",
+					id : 1,
+					points : [ 6,61 ]
+				},
+				"225" : {
+					title : "Pacifica pitta dosha",
+					id : 1,
+					points : [ 14,18 ]
+				},
+				"226" : {
+					title : "Prana y Apana en la cavidad pélvica",
+					id : 1,
+					points : [ 114 ]
+				},
+				"227" : {
+					title : "Promueve apetito y mejora la digestión ",
+					id : 1,
+					points : [ 28 ]
+				},
+				"228" : {
+					title : "Promueve broncodilalación ",
+					id : 1,
+					points : [ 29 ]
+				},
+				"229" : {
+					title : "Promueve el movimiento normal de las extremidades superiores",
+					id : 1,
+					points : [ 84 ]
+				},
+				"230" : {
+					title : "Promueve la circulación en las extremidades inferiores",
+					id : 1,
+					points : [ 101,106,104,108,105,109 ]
+				},
+				"231" : {
+					title : "Promueve la circulación en las extremidades inferiores, especialmente los muslos",
+					id : 1,
+					points : [ 102,103 ]
+				},
+				"232" : {
+					title : "Promueve la circulación en los pies",
+					id : 1,
+					points : [ 114 ]
+				},
+				"233" : {
+					title : "Promueve la creatividad y la inteligencia",
+					id : 1,
+					points : [ 2 ]
+				},
+				"234" : {
+					title : "Promueve la digestión de los hidratos de carbono",
+					id : 1,
+					points : [ 25 ]
+				},
+				"235" : {
+					title : "Promueve la secreción del estómago y el páncreas",
+					id : 1,
+					points : [ 84 ]
+				},
+				"236" : {
+					title : "Promueve rango normal de movimiento de las extremidades superiores",
+					id : 1,
+					points : [ 85 ]
+				},
+				"237" : {
+					title : "Pulmones, faringe, laringe, tráquea",
+					id : 1,
+					points : [ 37,38 ]
+				},
+				"238" : {
+					title : "Regula colon y Apana Vayu ",
+					id : 1,
+					points : [ 96 ]
+				},
+				"239" : {
+					title : "Regula el colon",
+					id : 1,
+					points : [ 6 ]
+				},
+				"240" : {
+					title : "Regula el flujo de sangre a las pierna",
+					id : 1,
+					points : [ 101 ]
+				},
+				"241" : {
+					title : "Regula el funcionamiento del corazón y los pulmones",
+					id : 1,
+					points : [ 72,73,74 ]
+				},
+				"242" : {
+					title : "Regula el lagrimeo",
+					id : 1,
+					points : [ 15,16,17 ]
+				},
+				"243" : {
+					title : "Regula esfínter de la vejiga y trata la disfunción urinaria",
+					id : 1,
+					points : [ 69 ]
+				},
+				"244" : {
+					title : "Regula Kundalini",
+					id : 1,
+					points : [ 113 ]
+				},
+				"245" : {
+					title : "Regula la actividad de colon",
+					id : 1,
+					points : [ 77 ]
+				},
+				"246" : {
+					title : "Regula la actividad del lóbulo frontal ",
+					id : 1,
+					points : [ 2 ]
+				},
+				"247" : {
+					title : "Regula la coordinación de los movimientos de las extremidades superiores y el codo",
+					id : 1,
+					points : [ 87 ]
+				},
+				"248" : {
+					title : "Regula la función cardíaca y la frecuencia cardíaca",
+					id : 1,
+					points : [ 49,50,51,52,53 ]
+				},
+				"249" : {
+					title : "Mejora la circulación coronaria",
+					id : 1,
+					points : [ 49,50,51 ]
+				},
+				"250" : {
+					title : "Regula La función de los riñones, páncreas y glándulas suprarrenales",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"251" : {
+					title : "Regula la función del hígado y la vesícula biliar",
+					id : 1,
+					points : [ 59 ]
+				},
+				"252" : {
+					title : "Regula la función glomerular (filtración renal)",
+					id : 1,
+					points : [ 76 ]
+				},
+				"253" : {
+					title : "Regula la función renal y la filtración del agua ",
+					id : 1,
+					points : [ 110,111 ]
+				},
+				"254" : {
+					title : "Regula la lactancia",
+					id : 1,
+					points : [ 55,58 ]
+				},
+				"255" : {
+					title : "Regula la respiración",
+					id : 1,
+					points : [ 75 ]
+				},
+				"256" : {
+					title : "Regula la respiración y alivia broncoespasmos",
+					id : 1,
+					points : [ 48 ]
+				},
+				"157" : {
+					title : "Regula la sangre",
+					id : 1,
+					points : [ 70 ]
+				},
+				"258" : {
+					title : "Regula la secreción salival inflama agni",
+					id : 1,
+					points : [ 25 ]
+				},
+				"259" : {
+					title : "Regula la secreción y ácidos de la digestión",
+					id : 1,
+					points : [ 58 ]
+				},
+				"260" : {
+					title : "Regula la sudoración",
+					id : 1,
+					points : [ 83 ]
+				},
+				"261" : {
+					title : "Regula la vejiga y trata la disfunción urinaria",
+					id : 1,
+					points : [ 68 ]
+				},
+				"262" : {
+					title : "Regula la vejiga, trata la disfunción genitourinaria",
+					id : 1,
+					points : [ 67 ]
+				},
+				"263" : {
+					title : "Regula las funciones de intestino delgado y colon",
+					id : 1,
+					points : [ 60 ]
+				},
+				"264" : {
+					title : "Regula las funciones de intestino delgado y colon",
+					id : 1,
+					points : [ 59 ]
+				},
+				"265" : {
+					title : "Regula las funciones de los pulmones y el diafragma",
+					id : 1,
+					points : [ 93 ]
+				},
+				"266" : {
+					title : "Regula prana y apana vayu",
+					id : 1,
+					points : [ 2 ]
+				},
+				"267" : {
+					title : "Regula las funciones del bazo",
+					id : 1,
+					points : [ 60 ]
+				},
+				"268" : {
+					title : "Regula las funciones del coion",
+					id : 1,
+					points : [ 86,109 ]
+				},
+				"269" : {
+					title : "Regula las funciones del colon y la vejiga",
+					id : 1,
+					points : [ 112 ]
+				},
+				"270" : {
+					title : "Regula las funciones del corazón",
+					id : 1,
+					points : [ 97 ]
+				},
+				"271" : {
+					title : "Regula las funciones del estómago y páncreas",
+					id : 1,
+					points : [ 61 ]
+				},
+				"272" : {
+					title : "Regula las funciones del hígado, la vesícula biliar, el bazo, los intestinos",
+					id : 1,
+					points : [ 62,63,64,65,66 ]
+				},
+				"273" : {
+					title : "Regula las secreciones de ácido en el estómago",
+					id : 1,
+					points : [ 61 ]
+				},
+				"274" : {
+					title : "Regula las secreciones hormonales",
+					id : 1,
+					points : [ 5,1 ]
+				},
+				"275" : {
+					title : "Regula los órganos reproductores masculinos y femeninos ",
+					id : 1,
+					points : [ 68,69 ]
+				},
+				"276" : {
+					title : "Regula prana y apana vayu",
+					id : 1,
+					points : [ 20 ]
+				},
+				"277" : {
+					title : "Regula secreciones salivares",
+					id : 1,
+					points : [ 28 ]
+				},
+				"278" : {
+					title : "Regula Udana Vayu",
+					id : 1,
+					points : [ 84 ]
+				},
+				"279" : {
+					title : "Regula y desintoxica la sangre",
+					id : 1,
+					points : [ 60 ]
+				},
+				"280" : {
+					title : "Regular funciones de la tiroides y paratiroides",
+					id : 1,
+					points : [ 37 ]
+				},
+				"281" : {
+					title : "Regular la expresión de pensamientos, sentimientos y emociones a través del habla",
+					id : 1,
+					points : [ 37 ]
+				},
+				"282" : {
+					title : "Regular la función cardíaca",
+					id : 1,
+					points : [ 38 ]
+				},
+				"283" : {
+					title : "Regular la función del bazo y el hígado",
+					id : 1,
+					points : [ 41 ]
+				},
+				"284" : {
+					title : "Regular la presión arterial y las funciones cardíacas",
+					id : 1,
+					points : [ 39,40 ]
+				},
+				"285" : {
+					title : "Regular la respiración, pulmones y la garganta",
+					id : 1,
+					points : [ 42 ]
+				},
+				"286" : {
+					title : "Regular las emociones reprimidas",
+					id : 1,
+					points : [ 42 ]
+				},
+				"287" : {
+					title : "Regular las funciones de la tiroides y paratiroides",
+					id : 1,
+					points : [ 32,33,34,35,40,38,39.42 ]
+				},
+				"288" : {
+					title : "Relaja los hombros y extremidades superiores",
+					id : 1,
+					points : [ 83 ]
+				},
+				"289" : {
+					title : "Respuesta inmune ",
+					id : 1,
+					points : [ 94 ]
+				},
+				"290" : {
+					title : "Restaura la conciencia",
+					id : 1,
+					points : [ 1 ]
+				},
+				"291" : {
+					title : "Restaura la conciencia en caso de desmayo",
+					id : 1,
+					points : [ 20,26 ]
+				},
+				"292" : {
+					title : "Se calma la respiración",
+					id : 1,
+					points : [ 38 ]
+				},
+				"293" : {
+					title : "Beneficios para el habla",
+					id : 1,
+					points : [ 38 ]
+				},
+				"294" : {
+					title : "Se calma la respiración, estimula la broncodilatación",
+					id : 1,
+					points : [ 37 ]
+				},
+				"295" : {
+					title : "Se desarrolla la intuición y perspicacia",
+					id : 1,
+					points : [ 5 ]
+				},
+				"296" : {
+					title : "Se despliega tranquilidad mental, emociones",
+					id : 1,
+					points : [ 91 ]
+				},
+				"297" : {
+					title : "Se usa para tratar disfunciones sensoriales y motoras",
+					id : 1,
+					points : [ 1 ]
+				},
+				"298" : {
+					title : "Se usa para tratar la disfunción urinaria",
+					id : 1,
+					points : [ 85 ]
+				},
+				"299" : {
+					title : "Tez,color de la cara",
+					id : 1,
+					points : [ 26 ]
+				}
+			};
+			
+			groups.symptoms = {
 				"1" : {
 					title : "Absceso mamario",
 					id : 1,
@@ -2131,819 +3643,820 @@
 					points : [ 81 ]
 				}
 			};
-
-			points = {
+			
+			
+			var points = {
 				"1" : {
 					title : "punto1",
 					left : 52,
 					top : 3.6,
-					description: "descripción del punto 1",
-					front: true
+					description : "descripción del punto 1",
+					front : true
 				},
 				"2" : {
 					title : "avarta",
 					left : 52,
 					top : 4.9,
-					description: "descripción del punto 2",
-					front: true
+					description : "descripción del punto 2",
+					front : true
 				},
 				"3" : {
 					title : "punto3",
 					left : 51.8,
 					top : 2.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"4" : {
 					title : "punto4",
 					left : 52,
 					top : 8.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"5" : {
 					title : "punto5",
 					left : 50,
 					top : 22.4,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"6" : {
 					title : "punto6",
 					left : 39.2,
 					top : 23.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"7" : {
 					title : "punto7",
 					left : 45,
 					top : 13,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"8" : {
 					title : "punto8",
 					left : 41,
 					top : 12.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"9" : {
 					title : "punto9",
 					left : 34.5,
 					top : 13.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"10" : {
 					title : "pumto10",
 					left : 45,
 					top : 13.7,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"11" : {
 					title : "punto11",
 					left : 41,
 					top : 13.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"12" : {
 					title : "punto12",
 					left : 34.5,
 					top : 14.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"13" : {
 					title : "punto13",
 					left : 45,
 					top : 14.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"14" : {
 					title : "punto14",
 					left : 63.5,
 					top : 14.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"15" : {
 					title : "punto15",
 					left : 55,
 					top : 15.1,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"16" : {
 					title : "punto16",
 					left : 58.4,
 					top : 15.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"17" : {
 					title : "punto17",
 					left : 63.5,
 					top : 15,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"18" : {
 					title : "punto18",
 					left : 50,
 					top : 23.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"19" : {
 					title : "punto19",
 					left : 50,
 					top : 24.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"20" : {
 					title : "punto20",
 					left : 50,
 					top : 25.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"21" : {
 					title : "punto21",
 					left : 47.8,
 					top : 25.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"22" : {
 					title : "punto22",
 					left : 52,
 					top : 24.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"23" : {
 					title : "punto23",
 					left : 52,
 					top : 25,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"24" : {
 					title : "punto24",
 					left : 53,
 					top : 25.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"25" : {
 					title : "punto25",
 					left : 58.2,
 					top : 26.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"26" : {
-					title :"Punto26",
+					title : "Punto26",
 					left : 50,
 					top : 26.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"27" : {
 					title : "punto27",
 					left : 50,
 					top : 27.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"28" : {
 					title : "punto28",
 					left : 44.6,
 					top : 26.7,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"29" : {
 					title : "punto29",
 					left : 44,
 					top : 7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"30" : {
 					title : "punto30",
 					left : 45,
 					top : 7.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"31" : {
 					title : "punto31",
 					left : 45,
 					top : 8.4,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"32" : {
 					title : "punto32",
 					left : 45,
 					top : 9.2,
-					description: "descripción del punto ",
-					description: "descripción del punto 32",
-					front: false
+					description : "descripción del punto ",
+					description : "descripción del punto 32",
+					front : false
 				},
 				"33" : {
 					title : "punto33",
 					left : 45,
 					top : 10,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"34" : {
 					title : "punto34",
 					left : 45,
 					top : 10.6,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"35" : {
 					title : "punto35",
 					left : 45,
 					top : 11.4,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"36" : {
 					title : "punto36",
 					left : 44,
 					top : 12.3,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"37" : {
 					title : "punto37",
 					left : 59.8,
 					top : 43.8,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"38" : {
 					title : "punto38",
 					left : 50.5,
 					top : 47,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"39" : {
 					title : "punto39",
 					left : 51,
 					top : 43.8,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"40" : {
 					title : "punto40",
 					left : 51,
 					top : 45.4,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"41" : {
 					title : "punto41",
 					left : 48,
 					top : 47,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"42" : {
 					title : "punto42",
 					left : 50.5,
 					top : 48.2,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"43" : {
 					title : "punto43",
 					left : 51.4,
 					top : 41.1,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"44" : {
 					title : "punto44",
 					left : 50.8,
 					top : 39,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"45" : {
 					title : "punto45",
 					left : 51.3,
 					top : 41.7,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"46" : {
 					title : "punto46",
 					left : 48.7,
 					top : 41.1,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"47" : {
 					title : "punto47",
 					left : 60.7,
 					top : 57,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"48" : {
 					title : "punto48",
 					left : 41.8,
 					top : 59,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"49" : {
 					title : "punto49",
 					left : 41.8,
 					top : 60.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"50" : {
 					title : "punto50",
 					left : 41.8,
 					top : 61.6,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"51" : {
 					title : "punto51",
 					left : 41.8,
 					top : 62.7,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"52" : {
 					title : "punto52",
 					left : 46.9,
 					top : 60.1,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"53" : {
 					title : "punto53",
 					left : 47.6,
 					top : 63.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"54" : {
 					title : "pumto54",
 					left : 49,
 					top : 62,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"55" : {
 					title : "punto55",
 					left : 57.4,
 					top : 61.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"56" : {
 					title : "punto56",
 					left : 31.7,
 					top : 64.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"57" : {
 					title : "punto57",
 					left : 32.6,
 					top : 68.1,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"58" : {
 					title : "punto58",
 					left : 44.5,
 					top : 81.4,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"59" : {
 					title : "punto59",
 					left : 39.4,
 					top : 83.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"60" : {
 					title : "punto60",
 					left : 59.3,
 					top : 83.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"61" : {
 					title : "punto61",
 					left : 50,
 					top : 83.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"62" : {
 					title : "punto62",
 					left : 49,
 					top : 86.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"63" : {
 					title : "punto63",
 					left : 55.3,
 					top : 84.7,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"64" : {
 					title : "punto64",
 					left : 41.3,
 					top : 87.6,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"65" : {
 					title : "punto65",
 					left : 57,
 					top : 87.6,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"66" : {
 					title : "punto66",
 					left : 44.5,
 					top : 84.7,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"67" : {
 					title : "punto67",
 					left : 49,
 					top : 89.1,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"68" : {
 					title : "punto68",
 					left : 49.3,
 					top : 91.9,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"69" : {
 					title : "punto69",
 					left : 41.3,
 					top : 90.5,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"70" : {
 					title : "punto70",
 					left : 33.2,
 					top : 89.3,
-					description: "descripción del punto ",
-					front: true
+					description : "descripción del punto ",
+					front : true
 				},
 				"71" : {
 					title : "punto71",
 					left : 38,
 					top : 19.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"72" : {
 					title : "punto72",
 					left : 49.5,
 					top : 17.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"73" : {
 					title : "punto73",
 					left : 49.5,
 					top : 18.8,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"74" : {
 					title : "punto74",
 					left : 49.5,
 					top : 19.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"75" : {
 					title : "punto75",
 					left : 39,
 					top : 22,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"76" : {
 					title : "punto76",
 					left : 49.8,
 					top : 25.8,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"77" : {
 					title : "punto77",
 					left : 50.5,
 					top : 29,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"78" : {
 					title : "punto78",
 					left : 50.7,
 					top : 29.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"79" : {
 					title : "punto79",
 					left : 49,
 					top : 32.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"80" : {
 					title : "punto80",
 					left : 50.4,
 					top : 40.8,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"81" : {
 					title : "punto81",
 					left : 37.8,
 					top : 39.8,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"82" : {
 					title : "punto82",
 					left : 29.6,
 					top : 39.6,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"83" : {
 					title : "punto83",
 					left : 37.3,
 					top : 40.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"84" : {
 					title : "punto84",
 					left : 24,
 					top : 54.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"85" : {
 					title : "punto85",
 					left : 23.2,
 					top : 57.2,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"86" : {
 					title : "punto86",
 					left : 22.5,
 					top : 58,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"87" : {
 					title : "punto87",
 					left : 12.5,
 					top : 39.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"88" : {
 					title : "punto88",
 					left : 9.8,
 					top : 39.3,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"89" : {
 					title : "punto89",
 					left : 66.7,
 					top : 62.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"90" : {
 					title : "punto90",
 					left : 66.5,
 					top : 60.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"91" : {
 					title : "punto91",
 					left : 18.8,
 					top : 62.4,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"92" : {
 					title : "punto92",
 					left : 55.7,
 					top : 51.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"93" : {
 					title : "punto93",
 					left : 16,
 					top : 63.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"94" : {
 					title : "punto94",
 					left : 14.5,
 					top : 63.2,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"95" : {
 					title : "punto95",
 					left : 74,
 					top : 64.4,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"96" : {
 					title : "punto96",
 					left : 67.4,
 					top : 66.6,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"97" : {
 					title : "punto97",
 					left : 53.6,
 					top : 65.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"98" : {
 					title : "punto98",
 					left : 17.9,
 					top : 70.1,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"99" : {
 					title : "punto99",
 					left : 24.8,
 					top : 87,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"100" : {
 					title : "punto100",
 					left : 25.3,
 					top : 90.3,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"101" : {
 					title : "punto101",
 					left : 35.5,
 					top : 69.8,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"102" : {
 					title : "punto102",
 					left : 17.9,
 					top : 71.9,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"103" : {
 					title : "punto103",
 					left : 35.5,
 					top : 71.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"104" : {
 					title : "punto104",
 					left : 18.5,
 					top : 75.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"105" : {
 					title : "punto105",
 					left : 34.1,
 					top : 75,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"106" : {
 					title : "punto106",
 					left : 73,
 					top : 75,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"107" : {
 					title : "punto107",
 					left : 34,
 					top : 76.5,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"108" : {
 					title : "punto108",
 					left : 72.8,
 					top : 77,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"109" : {
 					title : "punto109",
 					left : 18.7,
 					top : 77.3,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"110" : {
 					title : "punto110",
 					left : 73.5,
 					top : 81,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"111" : {
 					title : "punto111",
 					left : 25.1,
 					top : 98.4,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"112" : {
 					title : "punto112",
 					left : 36.2,
 					top : 81,
-					description: "descripción del punto ",
-					front:false
+					description : "descripción del punto ",
+					front : false
 				},
 				"113" : {
 					title : "punto113",
 					left : 37.9,
 					top : 84.1,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"114" : {
 					title : "punto114",
 					left : 19.5,
 					top : 82.7,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				},
 				"115" : {
 					title : "punto115",
 					left : 53.7,
 					top : 95.2,
-					description: "descripción del punto ",
-					front: false
+					description : "descripción del punto ",
+					front : false
 				}
 			};
 
 			marma.setPoints(points);
 
-			marma.setSymptoms(symptoms);
+			marma.setGroups(groups.symptoms);
 		});
 	</script>
 </body>
