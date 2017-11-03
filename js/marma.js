@@ -19,21 +19,21 @@
 	let marma = {
 			options: {
 				baseClassName: baseMarmaClass,
-				symptomClassName: baseMarmaClass + "symptom",
+				groupClassName: baseMarmaClass + "group",
 				pointClassName: baseMarmaClass + "point",
 				pointLineClassName: baseMarmaClass + "point-line",
 				pointDotClassName: baseMarmaClass + "point-dot",
 				bodyClassName: baseMarmaClass + "body",
 			},
 		},
-		symptomsContainer, searchBox,
-		symptoms, points;
+		groupsContainer, searchBox,
+		groups, points;
 
 	// Public
 	
 	marma = $.extend(marma, {
-		symptomsContainer: function(symptomsContainerExpr) {
-			this.symptomsContainer = $(symptomsContainerExpr);
+		groupsContainer: function(groupsContainerExpr) {
+			this.groupsContainer = $(groupsContainerExpr);
 		},
 		
 		searchBox: function(searchBoxExpr) {
@@ -44,9 +44,9 @@
 				let searchBox = $(this);
 				let searchTerm = searchBox.val().toLowerCase();
 
-				let symptoms = marma.symptomsContainer.find("." + marma.options.symptomClassName);
+				let groups = marma.groupsContainer.find("." + marma.options.groupClassName);
 				
-				symptoms.each(function() {
+				groups.each(function() {
 					let symp = $(this);
 					
 				    var text = symp.text().toLowerCase();
@@ -63,33 +63,33 @@
 			});
 		},
 		
-		setSymptoms: function(symptoms) {
-			this.symptoms = symptoms;
+		setGroups: function(groups) {
+			this.groups = groups;
 			
-			this.symptomsContainer.html("");
+			this.groupsContainer.html("");
 			
-			Object.entries(this.symptoms).forEach(
+			Object.entries(this.groups).forEach(
 			    ([key, value]) => {
-			    	let symptom = $("<div>");
-			    	symptom.addClass(marma.options.symptomClassName);
-			    	symptom.attr("id", key);
-			    	symptom.data("points", value.points);
-			    	symptom.text(value.title);
+			    	let group = $("<div>");
+			    	group.addClass(marma.options.groupClassName);
+			    	group.attr("id", key);
+			    	group.data("points", value.points);
+			    	group.text(value.title);
 			    	
-			    	this.symptomsContainer.append(symptom);
+			    	this.groupsContainer.append(group);
 			    }
 			);
 			
-			this.symptomsContainer.find("." + marma.options.symptomClassName).on("click", function(e) {
-				let symptom = $(e.currentTarget),
-					points = symptom.data("points"),
-					id = symptom.attr("id"),
+			this.groupsContainer.find("." + marma.options.groupClassName).on("click", function(e) {
+				let group = $(e.currentTarget),
+					points = group.data("points"),
+					id = group.attr("id"),
 					isClick = false;
 				
 				if(e.type === "click") {
 					isClick = true;
-					$("." + marma.options.symptomClassName).removeClass("active");
-					symptom.addClass("active");
+					$("." + marma.options.groupClassName).removeClass("active");
+					group.addClass("active");
 				}
 
 				$("." + marma.options.pointClassName + ", ." + marma.options.pointLineClassName + ", ." + marma.options.pointDotClassName).remove();
