@@ -68,6 +68,8 @@
 			
 			this.groupsContainer.html("");
 			
+			$("." + marma.options.pointDotClassName).removeClass("clicked").removeClass("active");
+			
 			Object.entries(this.groups).forEach(
 			    ([key, value]) => {
 			    	let group = $("<div>");
@@ -77,6 +79,10 @@
 			    	group.text(value.title);
 			    	
 			    	this.groupsContainer.append(group);
+			    	
+			    	for(let pointId of value.points) {
+				    	group.addClass("point" + pointId);
+			    	}
 			    }
 			);
 			
@@ -91,48 +97,80 @@
 					$("." + marma.options.groupClassName).removeClass("active");
 					group.addClass("active");
 				}
-
-				$("." + marma.options.pointClassName + ", ." + marma.options.pointLineClassName + ", ." + marma.options.pointDotClassName).remove();
 				
-				for(let value of points) {
-					let point = marma.points[value];
-					
-					if(point == null)
-						continue;
-					
-					let pointElem = $("<div>");
-					pointElem.attr("id", "point" + value);
-					pointElem.attr("title", point.description);
-					pointElem.addClass(marma.options.pointClassName);
-					pointElem.text("[" + value + "] " + point.title);
-					pointElem.css("top", point.top + "%");
-					
-					let dotElem = $("<div>");
-					dotElem.attr("id", "dot" + value);
-					dotElem.attr("title",point.description);
-					dotElem.addClass(marma.options.pointDotClassName);
-					dotElem.css("top", point.top + "%");
-					dotElem.css("left", point.left + "%");
-					
-				 	let bodyElem = $("." + marma.options.bodyClassName + "-" +
-						(point.front ? "front" : "back"));
-						
-					bodyElem.find(".body-refs").append(pointElem);
-					bodyElem.find(".body-image").append(dotElem);
-					
-					//let lineElem = marma.paintLine(
-							//pointElem.offset().left + pointElem.outerWidth(), pointElem.offset().top + pointElem.outerHeight() / 2,
-							//dotElem.offset().left - 2, dotElem.offset().top + dotElem.outerHeight() / 2);
-					
-					//$(lineElem).addClass(marma.options.pointLineClassName);
-
-					//$("body").append(lineElem);
+				$("." + marma.options.pointDotClassName).removeClass("clicked");
+				
+				$("." + marma.options.pointClassName + ".active , ." + marma.options.pointLineClassName + ".active , ." + marma.options.pointDotClassName + ".active").removeClass("active");
+				
+				for(let pointId of points) {
+					$("#point" + pointId + ", #dot" + pointId).addClass("active");
 				}
 			});
 		},
 
 		setPoints: function(points) {
 			this.points = points;
+
+			// reset current shown points
+			$("." + marma.options.pointClassName + ", ." + marma.options.pointLineClassName + ", ." + marma.options.pointDotClassName).remove();
+			
+			// add new points, dots & lines
+			for(let pointId in points) {
+				let point = points[pointId];
+				
+				if(point == null)
+					continue;
+				
+				let pointElem = $("<div>");
+				pointElem.data("pointId", pointId);
+				pointElem.attr("id", "point" + pointId);
+				pointElem.attr("title", point.description);
+				pointElem.addClass(marma.options.pointClassName);
+				pointElem.text("[" + pointId + "] " + point.title);
+				pointElem.css("top", point.top + "%");
+				
+				let dotElem = $("<div>");
+				dotElem.data("pointId", pointId);
+				dotElem.attr("id", "dot" + pointId);
+				dotElem.attr("title",point.description);
+				dotElem.addClass(marma.options.pointDotClassName);
+				dotElem.css("top", point.top + "%");
+				dotElem.css("left", point.left + "%");
+				
+			 	let bodyElem = $("." + marma.options.bodyClassName + "-" +
+					(point.front ? "front" : "back"));
+					
+				bodyElem.find(".body-refs").append(pointElem);
+				bodyElem.find(".body-image").append(dotElem);
+				
+				// let lineElem = marma.paintLine(
+						// pointElem.offset().left + pointElem.outerWidth(),
+						// pointElem.offset().top + pointElem.outerHeight() / 2,
+						// dotElem.offset().left - 2, dotElem.offset().top +
+						// dotElem.outerHeight() / 2);
+				
+				// $(lineElem).addClass(marma.options.pointLineClassName);
+
+				// $("body").append(lineElem);
+				
+				dotElem.on("click", function(e) {
+					let dot = $(this);
+
+					$("." + marma.options.pointDotClassName).removeClass("active");
+					
+					marma.groupsContainer.find("." + marma.options.groupClassName).show();
+					
+					if(dot.hasClass("clicked")) {
+						dot.removeClass("clicked");
+					} else {
+						$("." + marma.options.pointDotClassName + ".clicked").removeClass("clicked");
+
+						dot.addClass("clicked");
+						
+						marma.groupsContainer.find("." + marma.options.groupClassName + ":not(.point" + dot.data("pointId") + ")").hide();
+					}
+				});
+			}
 		},
 		
 		paintLine: function(x1, y1, x2, y2) {
